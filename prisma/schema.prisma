@@ -1,0 +1,31 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider     = "postgresql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
+}
+
+enum Gender {
+    male
+    female
+}
+
+model Registration {
+    uid                String   @id @unique
+    lucky_draw_no      Int      @unique @default(autoincrement())
+    name               String
+    email              String
+    gender             Gender
+    dob                DateTime
+    contact            String
+    existing_member    Boolean
+    language           String?
+    preferred_language String?
+    interest           String
+    specific_interest  String?
+    with_nf            Boolean  @default(false)
+    created_at         DateTime @default(now())
+}

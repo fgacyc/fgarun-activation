@@ -56,8 +56,8 @@ export const Field = <T,>({
           className={`w-full bg-white px-2 font-sf outline-none disabled:bg-opacity-80 disabled:text-gray-500${formikKey === "dob" ? " font-bold" : ""}`}
         >
           {options?.map((s, i) => (
-            <option key={i} value={s.value ?? s.label}>
-              {s.label}
+            <option disabled={!s.label} key={i} value={s.value ?? s.label}>
+              {s.label === "" ? "Choose one..." : s.label}
             </option>
           ))}
         </FormikField>
@@ -260,7 +260,7 @@ export const EmailField = <T,>({
 
       <div className="min-h-[24px] w-full py-1 pr-2 text-right font-sf text-xs italic text-white">
         Not You?{" "}
-        <Link className="text-[#d7fe00]" href="/api/auth/logout">
+        <Link className="text-[#d7fe00] underline" href="/api/auth/logout">
           Logout
         </Link>
       </div>

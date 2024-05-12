@@ -9,20 +9,20 @@ import { RunnerSVG } from "@/graphics/Runner";
 import { getTodayDate } from "@/helper";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { Form, Formik } from "formik";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import * as Yup from "yup";
 
 export type FormikRegisterForm = {
+  uid: string;
   name: string;
   email: string;
   gender: "male" | "female";
   dob: string;
   contact: string;
   existing_member: "yes" | "no";
-  language: "Bahasa" | "Chinese" | "English" | "Tamil" | "Others";
-  preferred_language: "Bahasa" | "Chinese" | "English" | "Tamil";
+  language: "" | "Bahasa" | "Chinese" | "English" | "Tamil" | "Others";
+  preferred_language: "" | "Bahasa" | "Chinese" | "English" | "Tamil";
   interest:
     | ""
     | "Creative Arts"
@@ -43,9 +43,15 @@ export default function Register() {
   const { isLoading, user } = useUser();
   useEffect(() => {
     if (isLoading) return;
-    if (user) return;
+    if (user) {
+      void (async () => {
+        const res = await fetch(`/api/check?uid=${user.sub}`);
 
-    void router.push("/");
+        if (res.status === 302) {
+          void router.push("/luckydraw");
+        }
+      })();
+    } else void router.push("/");
   }, [isLoading, router, user]);
 
   return (
@@ -60,20 +66,21 @@ export default function Register() {
           Run For <span className="text-[#d7fe00]">FGA</span>
         </h1>
         {isLoading ? (
-          <div className="h-[100px] w-[100px] rounded-lg bg-black/70 p-2">
+          <div className="fixed left-1/2 top-1/2 h-[100px] w-[100px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-black/70 p-2">
             <RunnerSVG />
           </div>
         ) : (
           <Formik<FormikRegisterForm>
             initialValues={{
+              uid: user?.sub ?? "",
               name: user?.name ?? "",
               gender: "male",
               email: user?.email ?? "",
               dob: getTodayDate(),
               contact: "",
               existing_member: "yes",
-              language: "Bahasa",
-              preferred_language: "Bahasa",
+              language: "",
+              preferred_language: "",
               with_nf: "yes",
               interest: "",
               specify_interest: "",
@@ -87,19 +94,42 @@ export default function Register() {
                 ),
               dob: Yup.string().required("Required."),
               name: Yup.string().required("Required."),
+              language: Yup.string().when("existing_member", {
+                is: "yes",
+                then: (schema) => schema.required("Required."),
+              }),
+              preferred_language: Yup.string().when("existing_member", {
+                is: "no",
+                then: (schema) => schema.required("Required."),
+              }),
               interest: Yup.string().required("Required."),
               specify_interest: Yup.string().when("interest", {
                 is: "Others",
                 then: (schema) => schema.required("Required."),
               }),
             })}
-            onSubmit={(values, action) =>
-              // console.log(new Date(values.dob).toISOString())
-              {
-                console.log(values);
+            onSubmit={async (values, action) => {
+              const dobInISO = new Date(values.dob).toISOString();
+              // console.log(values);
+              try {
+                const post = await fetch("/api/submit", {
+                  method: "POST",
+                  body: JSON.stringify({ ...values, dob: dobInISO }),
+                });
+
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                const res = await post.json();
+                console.log("returns", res);
+
+                if (post.ok) alert("Posted!");
+                action.resetForm();
+                await router.push("/luckydraw");
+              } catch (err) {
+                console.error(err);
+              } finally {
                 action.setSubmitting(false);
               }
-            }
+            }}
           >
             {({ isSubmitting, values }) => (
               <Form className="mt-5 flex w-full max-w-[350px] flex-col gap-2">
@@ -160,6 +190,7 @@ export default function Register() {
                     as="select"
                     label="Language"
                     options={[
+                      { label: "", value: "" },
                       {
                         label: "Bahasa",
                         value: "Bahasa",
@@ -209,6 +240,7 @@ export default function Register() {
                     label="What is your primary / preferred language?"
                     as="select"
                     options={[
+                      { label: "", value: "" },
                       {
                         label: "Bahasa",
                         value: "Bahasa",
