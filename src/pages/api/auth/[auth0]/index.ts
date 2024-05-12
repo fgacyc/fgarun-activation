@@ -9,7 +9,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 // import { ApiError } from "next/dist/server/api-utils";
 
 const audience = process.env.AUTH0_AUDIENCE;
-const scope = process.env.AUTH0_SCOPE;
+// const scope = process.env.AUTH0_SCOPE;
 
 function getUrls(req: NextApiRequest) {
   const host = req.headers.host;
@@ -40,7 +40,7 @@ export default handleAuth({
       await handleLogin(req, res, {
         authorizationParams: {
           audience: audience,
-          scope: scope,
+          // scope: scope,
           redirect_uri: redirectUri,
         },
         returnTo: returnTo,
