@@ -16,9 +16,11 @@ function getUrls(req: NextApiRequest) {
   const protocol = process.env.VERCEL_URL ? "https" : "http";
   const redirectUri = `${protocol}://${host}/api/auth/callback`;
   const returnTo = `${protocol}://${host}/register`;
+  const logout = `${protocol}://${host}/`;
   return {
     redirectUri,
     returnTo,
+    logout,
   };
 }
 
@@ -52,9 +54,9 @@ export default handleAuth({
   },
 
   async logout(req: NextApiRequest, res: NextApiResponse) {
-    const { returnTo } = getUrls(req);
+    const { logout } = getUrls(req);
     await handleLogout(req, res, {
-      returnTo: returnTo,
+      returnTo: logout,
     });
   },
 });
