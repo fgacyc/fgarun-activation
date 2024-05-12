@@ -103,3 +103,8 @@
   font-style: italic;
   src: url(/assets/fonts/SF-Pro-Display-BlackItalic.otf);
 }
+
+input[type="radio"] {
+  left: -999em;
+  position: absolute;
+}

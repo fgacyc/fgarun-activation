@@ -1,4 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { handleAuth } from "@auth0/nextjs-auth0";
+import { handleAuth, handleLogin } from "@auth0/nextjs-auth0";
 
-export default handleAuth();
+export default handleAuth({
+  login: handleLogin(() => {
+    return {
+      authorizationParams: {
+        audience: "https://graphql.development.fgacyc.com/",
+      },
+      returnTo: "/register",
+    };
+  }),
+});
