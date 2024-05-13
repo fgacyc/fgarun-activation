@@ -21,7 +21,7 @@ model Registration {
     gender             Gender
     dob                DateTime
     contact            String
-    existing_member    Boolean
+    new_to_fga         Boolean
     language           String?
     preferred_language String?
     interest           String

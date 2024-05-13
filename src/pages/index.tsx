@@ -29,7 +29,7 @@ export default function Home() {
                 textShadow: "#000 1px 0 10px",
               }}
             >
-              Run For <span className="text-[#d7fe00]">FGA</span>
+              <span className="text-[#d7fe00]">FGA</span> Run 2024
             </h1>
 
             <Link

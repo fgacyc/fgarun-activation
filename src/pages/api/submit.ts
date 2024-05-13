@@ -12,20 +12,19 @@ const handler: NextApiHandler = async (req, res) => {
     contact,
     dob,
     email,
-    existing_member,
+    new_to_fga,
     gender,
     interest,
     language,
     name,
     preferred_language,
-    with_nf,
     specify_interest,
     uid,
   } = JSON.parse(req.body as string) as FormikRegisterForm;
 
   const fgamember =
-    existing_member === "yes"
-      ? { language: language, with_nf: with_nf === "yes" }
+    new_to_fga === "no"
+      ? { language: language }
       : { preferred_language: preferred_language };
 
   const specific_interest2 =
@@ -37,7 +36,7 @@ const handler: NextApiHandler = async (req, res) => {
         contact: contact,
         dob: dob,
         email: email,
-        existing_member: existing_member === "yes",
+        new_to_fga: new_to_fga === "yes",
         gender: gender,
         interest: interest,
         name: name,
@@ -70,9 +69,9 @@ const handler: NextApiHandler = async (req, res) => {
       timeZone: "Asia/Kuala_Lumpur",
     });
 
-    const gsup = await sheets.spreadsheets.values.append({
+    const gsup1 = await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.SPREADSHEET_ID,
-      range: "A:L",
+      range: "Master_Sheet!A:L",
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values: [
@@ -83,9 +82,8 @@ const handler: NextApiHandler = async (req, res) => {
             up.contact,
             2024 - parseInt(convertDob.slice(-4)),
             up.gender,
-            up.existing_member ? "Yes" : "No",
+            up.new_to_fga ? "Yes" : "No",
             up.language ?? "N/A",
-            up.with_nf ? "Yes" : "No",
             up.preferred_language ?? "N/A",
             up.interest === "Others" ? up.specific_interest : up.interest,
             _.padStart(String(up.lucky_draw_no), 4, "0"),
@@ -94,7 +92,34 @@ const handler: NextApiHandler = async (req, res) => {
       },
     });
 
-    return res.status(200).json(gsup);
+    const gsup2 = up.new_to_fga
+      ? await sheets.spreadsheets.values.append({
+          spreadsheetId: process.env.SPREADSHEET_ID,
+          range: "NF_Redemption!A:L",
+          valueInputOption: "USER_ENTERED",
+          requestBody: {
+            values: [
+              [
+                `=EPOCHTODATE(${up.created_at.getTime()},2)`,
+                up.name,
+                up.email,
+                up.contact,
+                // 2024 - parseInt(convertDob.slice(-4)),
+                up.gender,
+                up.new_to_fga ? "Yes" : "No",
+                // up.language ?? "N/A",
+                up.preferred_language ?? "N/A",
+                // up.interest === "Others" ? up.specific_interest : up.interest,
+                _.padStart(String(up.lucky_draw_no), 4, "0"),
+              ],
+            ],
+          },
+        })
+      : { status: 200 };
+
+    if (gsup1.status === 200 && gsup2.status === 200) {
+      return res.status(200).json(gsup1);
+    }
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: err });

@@ -3,7 +3,7 @@ import {
   AltRadioField,
   EmailField,
   Field,
-  RadioField,
+  // RadioField,
 } from "@/components/Form/Field";
 import { RunnerSVG } from "@/graphics/Runner";
 import { getTodayDate } from "@/helper";
@@ -20,7 +20,7 @@ export type FormikRegisterForm = {
   gender: "male" | "female";
   dob: string;
   contact: string;
-  existing_member: "yes" | "no";
+  new_to_fga: "yes" | "no";
   language: "" | "Bahasa" | "Chinese" | "English" | "Tamil" | "Others";
   preferred_language: "" | "Bahasa" | "Chinese" | "English" | "Tamil";
   interest:
@@ -35,12 +35,13 @@ export type FormikRegisterForm = {
     | "Mental Health"
     | "Others";
   specify_interest?: string;
-  with_nf: "yes" | "no";
+  // with_nf: "yes" | "no";
 };
 
 export default function Register() {
   const router = useRouter();
   const { isLoading, user } = useUser();
+
   useEffect(() => {
     if (isLoading) return;
     if (user) {
@@ -63,7 +64,7 @@ export default function Register() {
             textShadow: "#000 1px 0 10px",
           }}
         >
-          Run For <span className="text-[#d7fe00]">FGA</span>
+          <span className="text-[#d7fe00]">FGA</span> Run 2024
         </h1>
         {isLoading ? (
           <div className="fixed left-1/2 top-1/2 h-[100px] w-[100px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-black/70 p-2">
@@ -78,10 +79,10 @@ export default function Register() {
               email: user?.email ?? "",
               dob: getTodayDate(),
               contact: "",
-              existing_member: "yes",
+              new_to_fga: "no",
               language: "",
               preferred_language: "",
-              with_nf: "yes",
+              // with_nf: "yes",
               interest: "",
               specify_interest: "",
             }}
@@ -94,12 +95,12 @@ export default function Register() {
                 ),
               dob: Yup.string().required("Required."),
               name: Yup.string().required("Required."),
-              language: Yup.string().when("existing_member", {
-                is: "yes",
+              language: Yup.string().when("new_to_fga", {
+                is: "no",
                 then: (schema) => schema.required("Required."),
               }),
-              preferred_language: Yup.string().when("existing_member", {
-                is: "no",
+              preferred_language: Yup.string().when("new_to_fga", {
+                is: "yes",
                 then: (schema) => schema.required("Required."),
               }),
               interest: Yup.string().required("Required."),
@@ -143,7 +144,7 @@ export default function Register() {
                   disabled={isSubmitting}
                   label="Full Name"
                 />
-                <RadioField<FormikRegisterForm>
+                <AltRadioField<FormikRegisterForm>
                   formikKey="gender"
                   disabled={isSubmitting}
                   label="Gender"
@@ -168,10 +169,10 @@ export default function Register() {
                   disabled={isSubmitting}
                   label="Phone no."
                 />
-                <RadioField<FormikRegisterForm>
-                  formikKey="existing_member"
+                <AltRadioField<FormikRegisterForm>
+                  formikKey="new_to_fga"
                   disabled={isSubmitting}
-                  label="Existing FGA Member?"
+                  label="Are you new to FGA?"
                   options={[
                     {
                       label: "Yes",
@@ -183,7 +184,7 @@ export default function Register() {
                     },
                   ]}
                 />
-                {values.existing_member === "yes" && (
+                {values.new_to_fga === "no" && (
                   <Field<FormikRegisterForm>
                     formikKey="language"
                     disabled={isSubmitting}
@@ -215,25 +216,7 @@ export default function Register() {
                   />
                 )}
 
-                {values.existing_member === "yes" && (
-                  <AltRadioField<FormikRegisterForm>
-                    disabled={isSubmitting}
-                    formikKey="with_nf"
-                    label="Are you here today with a friend new to FGA?"
-                    options={[
-                      {
-                        label: "Yes",
-                        value: "yes",
-                      },
-                      {
-                        label: "No",
-                        value: "no",
-                      },
-                    ]}
-                  />
-                )}
-
-                {values.existing_member === "no" && (
+                {values.new_to_fga === "yes" && (
                   <AltField<FormikRegisterForm>
                     formikKey="preferred_language"
                     disabled={isSubmitting}

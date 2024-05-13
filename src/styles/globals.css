@@ -108,3 +108,7 @@ input[type="radio"] {
   left: -999em;
   position: absolute;
 }
+
+* {
+  appearance: none;
+}

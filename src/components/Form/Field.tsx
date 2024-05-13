@@ -53,7 +53,7 @@ export const Field = <T,>({
               : undefined;
           }}
           max={formikKey === "dob" ? getTodayDate() : undefined}
-          className={`w-full bg-white px-2 font-sf outline-none disabled:bg-opacity-80 disabled:text-gray-500${formikKey === "dob" ? " font-bold" : ""}`}
+          className={`w-full bg-white px-2 font-sf outline-none disabled:bg-white/70 disabled:text-gray-700${formikKey === "dob" ? " font-bold" : ""}`}
         >
           {options?.map((s, i) => (
             <option disabled={!s.label} key={i} value={s.value ?? s.label}>
@@ -112,7 +112,7 @@ export const AltField = <T,>({
               : undefined;
           }}
           max={formikKey === "dob" ? getTodayDate() : undefined}
-          className={`w-full bg-white px-2 font-sf outline-none disabled:bg-opacity-80 disabled:text-gray-500${formikKey === "dob" ? " font-bold" : ""}`}
+          className={`w-full bg-white px-2 font-sf outline-none disabled:bg-white/70 disabled:text-gray-700${formikKey === "dob" ? " font-bold" : ""}`}
         >
           {options?.map((s, i) => (
             <option disabled={!s.label} key={i} value={s.value ?? s.label}>
@@ -248,7 +248,7 @@ export const EmailField = <T,>({
           id={formikKey}
           name={String(formikKey)}
           disabled={disabled}
-          className={`w-full bg-white px-2 font-sf outline-none disabled:bg-opacity-80 disabled:text-gray-500`}
+          className={`w-full bg-white px-2 font-sf outline-none disabled:bg-white/70 disabled:text-gray-700`}
         >
           {options?.map((s, i) => (
             <option key={i} value={s.value ?? s.label}>

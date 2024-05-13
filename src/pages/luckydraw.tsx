@@ -19,10 +19,11 @@ export default function LuckyDraw() {
           void router.push("/register");
         }
 
-        await res.json().then((rs: { name: string; lucky_draw: string }) => {
-          setLuckyDrawNo(rs.lucky_draw);
-          setName(rs.name);
-        });
+        res.status === 302 &&
+          (await res.json().then((rs: { name: string; lucky_draw: string }) => {
+            setLuckyDrawNo(rs.lucky_draw);
+            setName(rs.name);
+          }));
       })();
     } else void router.push("/");
   }, [isLoading, router, user]);
@@ -35,7 +36,7 @@ export default function LuckyDraw() {
           textShadow: "#000 1px 0 10px",
         }}
       >
-        Run For <span className="text-[#d7fe00]">FGA</span>
+        <span className="text-[#d7fe00]">FGA</span> Run 2024
       </h1>
 
       {isLoading ? (
