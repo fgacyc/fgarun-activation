@@ -8,6 +8,7 @@ export default {
       fontFamily: {
         sf: ["'SF Pro Display'", ...fontFamily.sans],
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        revelia: ["Revelia", ...fontFamily.sans],
       },
     },
   },

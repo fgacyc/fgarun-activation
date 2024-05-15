@@ -18,16 +18,15 @@ const handler: NextApiHandler = async (req, res) => {
         uid: true,
         name: true,
         lucky_draw_no: true,
+        new_to_fga: true,
       },
     });
 
     if (find?.uid) {
-      return res
-        .status(302)
-        .json({
-          name: find.name,
-          lucky_draw: _.padStart(String(find.lucky_draw_no), 4, "0"),
-        });
+      return res.status(302).json({
+        name: find.name,
+        lucky_draw: _.padStart(String(find.lucky_draw_no), 4, "0"),
+      });
     } else {
       return res.status(404).end();
     }

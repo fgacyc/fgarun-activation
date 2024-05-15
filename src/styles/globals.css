@@ -104,9 +104,9 @@
   src: url(/assets/fonts/SF-Pro-Display-BlackItalic.otf);
 }
 
-input[type="radio"] {
-  left: -999em;
-  position: absolute;
+@font-face {
+  font-family: "Revelia";
+  src: url(/assets/fonts/revelia.otf);
 }
 
 * {

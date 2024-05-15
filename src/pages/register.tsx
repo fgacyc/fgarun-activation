@@ -1,12 +1,13 @@
 import {
-  AltField,
+  // AltField,
   AltRadioField,
   EmailField,
   Field,
   // RadioField,
 } from "@/components/Form/Field";
+import { Title } from "@/components/Title";
 import { RunnerSVG } from "@/graphics/Runner";
-import { getTodayDate } from "@/helper";
+// import { getTodayDate } from "@/helper";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
@@ -58,14 +59,15 @@ export default function Register() {
   return (
     <>
       <main className="flex min-h-screen flex-col items-center bg-[url('/assets/fga_run_bg.jpg')] bg-fixed bg-center p-7 py-12">
-        <h1
+        {/* <h1
           className="font-sf text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]"
           style={{
             textShadow: "#000 1px 0 10px",
           }}
         >
-          <span className="text-[#d7fe00]">FGA</span> Run 2024
-        </h1>
+          <span className="text-[#d6fe00]">FGA</span> Run 2024
+        </h1> */}
+        <Title />
         {isLoading ? (
           <div className="fixed left-1/2 top-1/2 h-[100px] w-[100px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-black/70 p-2">
             <RunnerSVG />
@@ -77,7 +79,7 @@ export default function Register() {
               name: user?.name ?? "",
               gender: "male",
               email: user?.email ?? "",
-              dob: getTodayDate(),
+              dob: "----------",
               contact: "",
               new_to_fga: "no",
               language: "",
@@ -133,7 +135,7 @@ export default function Register() {
             }}
           >
             {({ isSubmitting, values }) => (
-              <Form className="mt-5 flex w-full max-w-[350px] flex-col gap-2">
+              <Form className="mt-5 flex w-full max-w-[350px] flex-col gap-1">
                 <EmailField<FormikRegisterForm>
                   formikKey="email"
                   disabled
@@ -167,7 +169,7 @@ export default function Register() {
                 <Field<FormikRegisterForm>
                   formikKey="contact"
                   disabled={isSubmitting}
-                  label="Phone no."
+                  label="Contact No."
                 />
                 <AltRadioField<FormikRegisterForm>
                   formikKey="new_to_fga"
@@ -189,7 +191,7 @@ export default function Register() {
                     formikKey="language"
                     disabled={isSubmitting}
                     as="select"
-                    label="Language"
+                    label="Language Church"
                     options={[
                       { label: "", value: "" },
                       {
@@ -217,10 +219,10 @@ export default function Register() {
                 )}
 
                 {values.new_to_fga === "yes" && (
-                  <AltField<FormikRegisterForm>
+                  <Field<FormikRegisterForm>
                     formikKey="preferred_language"
                     disabled={isSubmitting}
-                    label="What is your primary / preferred language?"
+                    label="What is your preferred language?"
                     as="select"
                     options={[
                       { label: "", value: "" },
@@ -244,10 +246,10 @@ export default function Register() {
                   />
                 )}
                 {/* TODO: Change */}
-                <AltField<FormikRegisterForm>
+                <Field<FormikRegisterForm>
                   formikKey="interest"
                   disabled={isSubmitting}
-                  label="What activities or topics are you interested in?"
+                  label="What are your areas of interest?"
                   as="select"
                   options={[
                     {
@@ -293,17 +295,17 @@ export default function Register() {
                   ]}
                 />
                 {values.interest === "Others" && (
-                  <AltField
+                  <Field
                     disabled={isSubmitting}
                     formikKey="specify_interest"
-                    label="Please specify your topic of interest"
+                    label="Please specify"
                   />
                 )}
 
                 {/* <p className="bg-white">{new Date().toLocaleDateString()}</p> */}
                 <button
                   type="submit"
-                  className="rounded-md bg-[#d7fe00] py-1 font-sf font-bold text-black shadow-md"
+                  className="rounded-md bg-[#d6fe00] py-1 font-sf font-bold text-black shadow-md"
                 >
                   Submit
                 </button>
