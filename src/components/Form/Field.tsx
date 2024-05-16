@@ -257,7 +257,7 @@ export const EmailField = <T,>({
         id={formikKey}
         name={String(formikKey)}
         disabled={disabled}
-        className={`mt-1 w-full rounded-lg bg-white px-3 py-3 font-sf outline-none disabled:bg-[#a5a5a5] disabled:text-black ${errors[formikKey] ? "!border-2 border-[#EB5757]" : "border border-[#cccccc]"}`}
+        className={`mt-1 w-full rounded-lg bg-[#bbbbbb] px-3 py-3 font-sf outline-none disabled:text-[#676767] ${errors[formikKey] ? "!border-2 border-[#EB5757]" : "border border-[#cccccc]"}`}
       >
         {options?.map((s, i) => (
           <option key={i} value={s.value ?? s.label}>

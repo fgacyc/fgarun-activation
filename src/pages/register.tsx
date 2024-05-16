@@ -89,7 +89,7 @@ export default function Register() {
                 name: user?.name ?? "",
                 gender: "male",
                 email: user?.email ?? "",
-                dob: "2000-01-01",
+                dob: "",
                 contact: "",
                 new_to_fga: "no",
                 language: "",
