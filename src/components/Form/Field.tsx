@@ -20,7 +20,7 @@ export const Field = <T,>({
   as,
   options,
 }: FieldProps<T>) => {
-  const { errors, values } = useFormikContext<T>();
+  const { errors, values, isSubmitting } = useFormikContext<T>();
 
   const ref = useRef<HTMLInputElement>(null);
   return (
@@ -35,7 +35,7 @@ export const Field = <T,>({
       </div>
 
       <div
-        className={`relative mt-1 flex h-full w-full flex-row items-center overflow-hidden rounded-lg bg-white  ${errors[formikKey] ? "!border-2 border-[#EB5757]" : "border border-[#cccccc]"}`}
+        className={`relative mt-1 flex h-full w-full flex-row items-center overflow-hidden rounded-lg ${isSubmitting ? "bg-[#8e8e8e]" : "bg-white"} ${errors[formikKey] ? "!border-2 border-[#EB5757]" : "border border-[#cccccc]"}`}
       >
         <FormikField
           as={as ?? "input"}

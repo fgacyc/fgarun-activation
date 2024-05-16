@@ -43,10 +43,10 @@ export default function LuckyDraw() {
   }, [isLoading, router, user]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-7 py-12">
+    <main className="flex min-h-screen w-full flex-col items-center p-7 py-12">
       <img
         src="/assets/fga_run_bg_gradient.png"
-        className="fixed inset-0 h-full object-cover object-center"
+        className="fixed inset-0 h-full object-cover object-center lg:w-full"
         alt="bg"
       />
       <div className="z-10 flex h-full w-full flex-col items-center">

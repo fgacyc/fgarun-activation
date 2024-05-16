@@ -26,6 +26,7 @@ const handler: NextApiHandler = async (req, res) => {
       return res.status(302).json({
         name: find.name,
         lucky_draw: _.padStart(String(find.lucky_draw_no), 4, "0"),
+        new_to_fga: find.new_to_fga,
       });
     } else {
       return res.status(404).end();

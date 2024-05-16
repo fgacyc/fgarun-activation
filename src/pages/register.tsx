@@ -79,7 +79,7 @@ export default function Register() {
               name: user?.name ?? "",
               gender: "male",
               email: user?.email ?? "",
-              dob: "----------",
+              dob: "2000-01-01",
               contact: "",
               new_to_fga: "no",
               language: "",
@@ -95,7 +95,7 @@ export default function Register() {
                   /^(\+?6?01)[0|1|2|3|4|6|7|8|9]-*[0-9]{7,8}$/,
                   "Invalid format.",
                 ),
-              dob: Yup.string().required("Required."),
+              dob: Yup.date().required("Required."),
               name: Yup.string().required("Required."),
               language: Yup.string().when("new_to_fga", {
                 is: "no",
@@ -113,6 +113,7 @@ export default function Register() {
             })}
             onSubmit={async (values, action) => {
               const dobInISO = new Date(values.dob).toISOString();
+              // action.setSubmitting(true);
               // console.log(values);
               try {
                 const post = await fetch("/api/submit", {
@@ -305,7 +306,7 @@ export default function Register() {
                 {/* <p className="bg-white">{new Date().toLocaleDateString()}</p> */}
                 <button
                   type="submit"
-                  className="rounded-md bg-[#d6fe00] py-1 font-sf font-bold text-black shadow-md"
+                  className="mt-5 w-full max-w-[400px] rounded-lg bg-[#d6fe00] py-3 text-center font-sf text-[20px] font-bold text-[#000]"
                 >
                   Submit
                 </button>
