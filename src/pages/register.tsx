@@ -342,9 +342,10 @@ export default function Register() {
                   {/* <p className="bg-white">{new Date().toLocaleDateString()}</p> */}
                   <button
                     type="submit"
-                    className="mt-5 w-full max-w-[400px] rounded-lg bg-[#d6fe00] py-3 text-center font-sf text-[20px] font-bold text-[#000]"
+                    disabled={isSubmitting}
+                    className="mt-5 w-full max-w-[400px] rounded-lg bg-[#d6fe00] py-3 text-center font-sf text-[20px] font-bold text-[#000] disabled:opacity-70"
                   >
-                    Activate
+                    {isSubmitting ? "Loading..." : "Activate"}
                   </button>
                 </Form>
               )}
