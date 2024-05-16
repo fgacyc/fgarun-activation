@@ -18,8 +18,9 @@ export default function Home() {
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-[url('/assets/fga_run_bg.jpg')] bg-cover bg-center px-8">
+        <div className="fixed left-0 top-0 z-10 min-h-screen w-screen bg-black/20" />
         {isLoading ? (
-          <div className="h-[100px] w-[100px] rounded-lg bg-black/70 p-2">
+          <div className="z-20 h-[100px] w-[100px] rounded-lg bg-black/70 p-2">
             <RunnerSVG />
           </div>
         ) : (
@@ -35,7 +36,7 @@ export default function Home() {
             </h1> */}
 
             <Link
-              className="mt-5 w-full max-w-[400px] rounded-lg bg-[#d6fe00] py-3 text-center font-sf text-[20px] font-bold text-[#000]"
+              className="z-20 mt-5 w-full max-w-[400px] rounded-lg bg-[#d6fe00] py-3 text-center font-sf text-[20px] font-bold text-[#000]"
               href="/api/auth/login"
             >
               Sign In / Register

@@ -49,7 +49,9 @@ export default function LuckyDraw() {
         className="fixed inset-0 h-full object-cover object-center lg:w-full"
         alt="bg"
       />
-      <div className="z-10 flex h-full w-full flex-col items-center">
+      <div className="fixed left-0 top-0 z-10 min-h-screen w-screen bg-black/20" />
+
+      <div className="z-20 flex h-full w-full flex-col items-center">
         <Title subtitle="Thank you for coming!" />
 
         {isLoading ? (
@@ -83,13 +85,13 @@ export default function LuckyDraw() {
             {nf && <NFEndCard />}
 
             <div className="flex w-full flex-row items-center justify-between">
-              <div className="flex min-h-[24px] flex-row items-center gap-0.5 py-1 pl-2 font-sf text-[10px] font-[200] text-white">
+              <div className="flex min-h-[24px] flex-row items-center gap-0.5 py-1 pl-2 font-sf text-[10px] font-normal text-white">
                 Signed in as:{" "}
                 <span className="block max-w-[90px] truncate font-bold text-[#fff]">
                   {name}
                 </span>
               </div>
-              <div className="min-h-[24px] py-1 pr-2 text-right font-sf text-[10px] font-[200] text-white">
+              <div className="min-h-[24px] py-1 pr-2 text-right font-sf text-[10px] font-normal text-white">
                 Not You?{" "}
                 <Link
                   className="font-bold text-[#d6fe00] underline"

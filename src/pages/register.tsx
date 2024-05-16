@@ -59,6 +59,8 @@ export default function Register() {
   return (
     <>
       <main className="flex min-h-screen flex-col items-center bg-[url('/assets/fga_run_bg.jpg')] bg-fixed bg-center p-7 py-12">
+        <div className="fixed left-0 top-0 z-10 min-h-screen w-screen bg-black/20" />
+
         {/* <h1
           className="font-sf text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]"
           style={{
@@ -69,7 +71,7 @@ export default function Register() {
         </h1> */}
         <Title />
         {isLoading ? (
-          <div className="fixed left-1/2 top-1/2 h-[100px] w-[100px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-black/70 p-2">
+          <div className="fixed left-1/2 top-1/2 z-20 h-[100px] w-[100px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-black/70 p-2">
             <RunnerSVG />
           </div>
         ) : (
@@ -136,7 +138,7 @@ export default function Register() {
             }}
           >
             {({ isSubmitting, values }) => (
-              <Form className="mt-5 flex w-full max-w-[350px] flex-col gap-1">
+              <Form className="z-20 mt-5 flex w-full max-w-[350px] flex-col gap-1">
                 <EmailField<FormikRegisterForm>
                   formikKey="email"
                   disabled
@@ -308,7 +310,7 @@ export default function Register() {
                   type="submit"
                   className="mt-5 w-full max-w-[400px] rounded-lg bg-[#d6fe00] py-3 text-center font-sf text-[20px] font-bold text-[#000]"
                 >
-                  Submit
+                  Activate
                 </button>
               </Form>
             )}

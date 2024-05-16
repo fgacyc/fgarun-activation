@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 export const Title = ({ subtitle }: { subtitle?: string }) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-2">
+    <div className="z-20 flex flex-col items-center justify-center gap-2">
       <img
         src="/assets/title.png"
         alt="title"
