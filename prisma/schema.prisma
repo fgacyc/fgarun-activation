@@ -24,7 +24,7 @@ model Registration {
     new_to_fga         Boolean
     language           String?
     preferred_language String?
-    interest           String
+    interest           String?
     specific_interest  String?
     with_nf            Boolean  @default(false)
     created_at         DateTime @default(now())

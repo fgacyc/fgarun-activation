@@ -20,15 +20,17 @@ const handler: NextApiHandler = async (req, res) => {
     preferred_language,
     specify_interest,
     uid,
+    with_nf,
   } = JSON.parse(req.body as string) as FormikRegisterForm;
-
-  const fgamember =
-    new_to_fga === "no"
-      ? { language: language }
-      : { preferred_language: preferred_language };
 
   const specific_interest2 =
     interest === "Others" ? { specific_interest: specify_interest } : null;
+
+  const fgamember =
+    new_to_fga === "no"
+      ? { language: language, ...specific_interest2 }
+      : { preferred_language: preferred_language };
+
   try {
     const up = await db.registration.create({
       data: {
@@ -37,11 +39,11 @@ const handler: NextApiHandler = async (req, res) => {
         dob: dob,
         email: email,
         new_to_fga: new_to_fga === "yes",
+        with_nf: with_nf === "yes",
         gender: gender,
         interest: interest,
         name: name,
         ...fgamember,
-        ...specific_interest2,
       },
     });
 
@@ -83,9 +85,14 @@ const handler: NextApiHandler = async (req, res) => {
             2024 - parseInt(convertDob.slice(-4)),
             up.gender,
             up.new_to_fga ? "Yes" : "No",
+            up.with_nf ? "Yes" : "No",
             up.language ?? "N/A",
             up.preferred_language ?? "N/A",
-            up.interest === "Others" ? up.specific_interest : up.interest,
+            up.new_to_fga
+              ? up.interest === "Others"
+                ? up.specific_interest
+                : up.interest
+              : "N/A",
             _.padStart(String(up.lucky_draw_no), 4, "0"),
           ],
         ],
