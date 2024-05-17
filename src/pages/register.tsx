@@ -208,7 +208,7 @@ export default function Register() {
                   <AltRadioField<FormikRegisterForm>
                     formikKey="with_nf"
                     disabled={isSubmitting}
-                    label="Brought someone new to church?"
+                    label="Brought someone new to this event?"
                     options={[
                       {
                         label: "Yes",
