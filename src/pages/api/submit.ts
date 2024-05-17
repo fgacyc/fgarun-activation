@@ -39,7 +39,7 @@ const handler: NextApiHandler = async (req, res) => {
         dob: dob,
         email: email,
         new_to_fga: new_to_fga === "yes",
-        with_nf: with_nf === "yes",
+        with_nf: new_to_fga === "yes" ? false : with_nf === "yes",
         gender: gender,
         interest: interest,
         name: name,

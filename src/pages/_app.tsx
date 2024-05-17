@@ -14,7 +14,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Run For FGA</title>
+        <title>FGA RUN 2024</title>
         <meta name="description" content="Run For FGA Activation." />
         <link rel="icon" href="/favicon.ico" />
       </Head>

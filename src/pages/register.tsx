@@ -205,21 +205,23 @@ export default function Register() {
                       },
                     ]}
                   />
-                  <AltRadioField<FormikRegisterForm>
-                    formikKey="with_nf"
-                    disabled={isSubmitting}
-                    label="Brought someone new to this event?"
-                    options={[
-                      {
-                        label: "Yes",
-                        value: "yes",
-                      },
-                      {
-                        label: "No",
-                        value: "no",
-                      },
-                    ]}
-                  />
+                  {values.new_to_fga === "no" && (
+                    <AltRadioField<FormikRegisterForm>
+                      formikKey="with_nf"
+                      disabled={isSubmitting}
+                      label="Brought someone new to this event?"
+                      options={[
+                        {
+                          label: "Yes",
+                          value: "yes",
+                        },
+                        {
+                          label: "No",
+                          value: "no",
+                        },
+                      ]}
+                    />
+                  )}
                   {values.new_to_fga === "no" && (
                     <Field<FormikRegisterForm>
                       formikKey="language"
